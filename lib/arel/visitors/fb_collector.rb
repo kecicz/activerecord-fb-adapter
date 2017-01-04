@@ -71,7 +71,7 @@ module Arel
           end
         end
 
-        collector = maybe_visit o.having, collector
+        collector = maybe_visit o.havings, collector
         collector
       end
 
