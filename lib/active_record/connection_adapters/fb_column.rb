@@ -25,6 +25,10 @@ module ActiveRecord
         end
       end
 
+      def sql_type
+        @sql_type_metadata.class
+      end
+
       attr_reader :sub_type, :domain
 
       if ActiveRecord::VERSION::STRING < "4.2.0"
