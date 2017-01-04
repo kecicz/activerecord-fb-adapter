@@ -103,7 +103,7 @@ module ActiveRecord
           if ActiveRecord::VERSION::STRING < "4.2.0"
             values = binds.map { |b| type_cast(*b.reverse) }
           else
-            values = []
+            values = binds.map{|bind| bind.value}
           end
 
           if sql =~ /(CREATE TABLE|ALTER TABLE)/
