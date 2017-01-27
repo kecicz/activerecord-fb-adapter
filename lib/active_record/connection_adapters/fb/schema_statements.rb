@@ -26,6 +26,16 @@ module ActiveRecord
           @connection.table_names
         end
 
+        def views
+          rows = @connection.query(<<-end_sql)
+            SELECT rdb$relation_name
+            FROM rdb$relations
+            WHERE rdb$view_blr IS NOT NULL 
+            AND (rdb$system_flag IS NULL OR rdb$system_flag = 0);
+          end_sql
+          rows.map{|row| row[0].strip}
+        end
+
         # Returns an array of indexes for the given table.
         def indexes(table_name, _name = nil)
           @connection.indexes.values.map { |ix|

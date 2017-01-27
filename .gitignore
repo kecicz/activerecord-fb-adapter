@@ -3,3 +3,4 @@ db
 Gemfile.lock
 coverage
 *.log
+.idea/
