@@ -110,11 +110,11 @@ module ActiveRecord
             sql.gsub!(/(\@BINDDATE|BINDDATE\@)/m, '\'')
           else
             # TODO: What's happen here? Results frozen string error
-            sql = sql.gsub(/\@BINDBINARY(.*?)BINDBINARY\@/m) do |extract|
+            sql = sql.dup.gsub(/\@BINDBINARY(.*?)BINDBINARY\@/m) do |extract|
               values << decode(extract[11...-11]) and '?'
             end
 
-            sql = sql.gsub(/\@BINDDATE(.*?)BINDDATE\@/m) do |extract|
+            sql = sql.dup.gsub(/\@BINDDATE(.*?)BINDDATE\@/m) do |extract|
               values << extract[9...-9] and '?'
             end
           end
