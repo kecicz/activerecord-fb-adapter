@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.author = "Brent Rowland"
   s.name = "activerecord-fb-adapter"
-  s.version = "1.0.3"
+  s.version = "1.0.3.9"
   s.date = "2016-02-29"
   s.summary = "ActiveRecord Firebird Adapter for Rails 3 and 4 with support for migrations."
   s.licenses = ["MIT"]
@@ -12,8 +12,9 @@ Gem::Specification.new do |s|
   s.has_rdoc = false
   s.files = Dir['README.md', 'lib/**/*']
 
-  s.add_dependency 'fb', '>= 0.7.4'
-  s.add_dependency 'activerecord', '>= 3.2.0'
+  s.add_runtime_dependency 'activerecord', '~> 5.1.6'
+  s.add_runtime_dependency 'arel', '~> 8.0'
+  s.add_runtime_dependency 'fb', '~> 0.8.0'
 
   s.add_development_dependency 'mocha'
   s.add_development_dependency 'pry-byebug'
