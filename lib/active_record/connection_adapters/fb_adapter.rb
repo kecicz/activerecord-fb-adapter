@@ -13,7 +13,7 @@ else
   require 'arel/visitors/fb_collector'
 end
 
-require 'arel/visitors/bind_visitor'
+#require 'arel/visitors/bind_visitor'
 require 'active_record'
 require 'active_record/base'
 require 'active_record/connection_adapters/abstract_adapter'
