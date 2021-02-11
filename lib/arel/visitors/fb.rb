@@ -39,5 +39,3 @@ module Arel
     end
   end
 end
-
-Arel::Visitors::VISITORS['fb'] = Arel::Visitors::Fb
