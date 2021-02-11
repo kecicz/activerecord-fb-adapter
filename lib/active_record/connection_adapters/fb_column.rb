@@ -36,10 +36,15 @@ module ActiveRecord
           @domain, @sub_type = fb_options.values_at(:domain, :sub_type)
           super(name.downcase, parse_default(default), sql_type, null)
         end
-      else
+      elsif ActiveRecord::VERSION::STRING < "6.0.0"
         def initialize(name, default, cast_type, sql_type = nil, null = true, fb_options = {})
           @domain, @sub_type = fb_options.values_at(:domain, :sub_type)
           super(name.downcase, parse_default(default), cast_type, sql_type, null)
+        end
+      else
+        def initialize(name, default, sql_type_metadata = nil, null = true, fb_options = {})
+          @domain, @sub_type = fb_options.values_at(:domain, :sub_type)
+          super(name.downcase, parse_default(default), sql_type_metadata, null)
         end
       end
 

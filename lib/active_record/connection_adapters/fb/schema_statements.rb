@@ -254,8 +254,23 @@ module ActiveRecord
 
           if ActiveRecord::VERSION::STRING < "4.2.0"
             [sql_type]
-          else
+          elsif ActiveRecord::VERSION::STRING < "6.0.0"
             [lookup_cast_type(sql_type), sql_type]
+          else
+            [fetch_type_metadata(sql_type)]
+          end
+        end
+
+        if ::ActiveRecord::VERSION::MAJOR > 5
+          def fetch_type_metadata(sql_type)
+            cast_type = lookup_cast_type(sql_type)
+            SqlTypeMetadata.new(
+              sql_type: sql_type,
+              type: cast_type.type,
+              limit: cast_type.limit,
+              precision: cast_type.precision,
+              scale: cast_type.scale
+            )
           end
         end
 

@@ -8,7 +8,7 @@ module ActiveRecord
           exec_query(sql, name, binds).to_a.map(&:values)
         end
 
-        def execute(sql, name = nil)
+        def execute(sql, name = nil, async: false)
           translate_and_log(sql, [], name) do |args|
             @connection.execute(*args)
           end
@@ -17,14 +17,18 @@ module ActiveRecord
         # Executes +sql+ statement in the context of this connection using
         # +binds+ as the bind substitutes. +name+ is logged along with
         # the executed +sql+ statement.
-        def exec_query(sql, name = 'SQL', binds = [])
+        def exec_query(sql, name = 'SQL', binds = [], prepare: false, async: false)
           translate_and_log(sql, binds, name) do |args|
             result, rows = @connection.execute(*args) do |cursor|
               [cursor.fields, cursor.fetchall]
             end
             next result unless result.respond_to?(:map)
             cols = result.map { |col| col.name }
-            ActiveRecord::Result.new(cols, rows)
+            if result
+              build_result(columns: cols, rows: rows)
+            else
+              build_result(columns: [], rows: [])
+            end
           end
         end
 

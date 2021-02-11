@@ -7,11 +7,7 @@ require 'fb'
 require 'base64'
 require 'arel'
 
-if Arel::VERSION < "6.0.0"
-  require 'arel/visitors/fb'
-else
-  require 'arel/visitors/fb_collector'
-end
+require 'arel/visitors/fb'
 
 #require 'arel/visitors/bind_visitor'
 require 'active_record'
