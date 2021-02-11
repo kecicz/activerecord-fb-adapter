@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
   s.files = Dir['README.md', 'lib/**/*']
 
   s.add_runtime_dependency 'activerecord', '~> 6.1.0'
-  s.add_runtime_dependency 'arel', '~> 9.0'
   s.add_runtime_dependency 'fb', '~> 0.9.0'
 
   s.add_development_dependency 'mocha'
